@@ -152,9 +152,20 @@ SAMPLES
 
   ~ > ruby samples/d.rb
 
-    42
-    "forty-two"
-    42.0
+    config/d.rb:2:in `object_id': wrong number of arguments (1 for 0) (ArgumentError)
+    	from config/d.rb:2
+    	from ./lib/configuration.rb:159:in `instance_eval'
+    	from ./lib/configuration.rb:159:in `call'
+    	from ./lib/configuration.rb:159:in `method_missing'
+    	from ./lib/configuration.rb:105:in `evaluate'
+    	from ./lib/configuration.rb:68:in `initialize'
+    	from ./lib/configuration.rb:29:in `new'
+    	from ./lib/configuration.rb:29:in `for'
+    	from config/d.rb:1
+    	from ./lib/configuration.rb:53:in `load'
+    	from ./lib/configuration.rb:53:in `load'
+    	from ./lib/configuration.rb:31:in `for'
+    	from samples/d.rb:10
 
 
   <========< samples/e.rb >========>

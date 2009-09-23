@@ -75,16 +75,15 @@ class Configuration
   end
   send :include, InstanceMethods
 
-
   class DSL
-    protected = %r/^__|^object_id$/
+    Protected = %r/^__|^object_id$/
 
     instance_methods.each do |m|
-      undef_method m unless m[protected]
+      undef_method m unless m[Protected]
     end 
 
     Kernel.methods.each do |m|
-      next if m[protected]
+      next if m[Protected]
       module_eval <<-code
         def #{ m }(*a, &b)
           method_missing '#{ m }', *a, &b
@@ -102,7 +101,7 @@ class Configuration
 
     def self.evaluate configuration, options = {}, &block
       dsl = new configuration
-      Pure[dsl].instance_eval &block if block
+      Pure[dsl].instance_eval(&block) if block
       options.each{|key, value| Pure[dsl].send key, value}
       Pure[dsl].instance_eval{ @__configuration }
     end
@@ -119,7 +118,8 @@ class Configuration
       @__configuration
     end
 
-    def method_missing m, *a, &b
+    undef_method(:method_missing) rescue nil
+    def method_missing(m, *a, &b)
       if(a.empty? and b.nil?)
         return Pure[@__configuration].send(m, *a, &b)
       end
@@ -144,14 +144,24 @@ class Configuration
         define_method(m){ value }
       end
     end
+
+    def object_id(*args)
+      verbose = $VERBOSE
+      begin
+        define_method(:object_id){ args.first }
+      ensure
+        $VERBOSE = verbose
+      end
+    end
   end
 
-  class Pure 
+  class Pure
     Instance_Methods = Hash.new
+    Protected = %r/^__|^object_id$/
 
     ::Object.instance_methods.each do |m|
       Instance_Methods[m.to_s] = ::Object.instance_method m
-      undef_method m unless m[%r/^__/]
+      undef_method m unless m[Protected]
     end 
 
     def method_missing m, *a, &b
