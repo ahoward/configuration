@@ -145,13 +145,22 @@ class Configuration
       end
     end
 
-    def object_id(*args)
-      verbose = $VERBOSE
-      begin
-        define_method(:object_id){ args.first }
-      ensure
-        $VERBOSE = verbose
+    verbose = $VERBOSE
+    begin
+      def object_id(*args)
+        unless args.empty?
+          verbose = $VERBOSE
+          begin
+            define_method(:object_id){ args.first }
+          ensure
+            $VERBOSE = verbose
+          end
+        else
+          return Pure[@__configuration].object_id
+        end
       end
+    ensure
+      $VERBOSE = verbose
     end
   end
 
