@@ -77,12 +77,14 @@ class Configuration
 
 
   class DSL
+    protected = %r/^__|^object_id$/
+
     instance_methods.each do |m|
-      undef_method m unless m[%r/^__/]
+      undef_method m unless m[protected]
     end 
 
     Kernel.methods.each do |m|
-      next if m[%r/^__/]
+      next if m[protected]
       module_eval <<-code
         def #{ m }(*a, &b)
           method_missing '#{ m }', *a, &b
