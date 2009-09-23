@@ -147,10 +147,12 @@ class Configuration
 
     verbose = $VERBOSE
     begin
+      $VERBOSE = nil
       def object_id(*args)
         unless args.empty?
           verbose = $VERBOSE
           begin
+            $VERBOSE = nil
             define_method(:object_id){ args.first }
           ensure
             $VERBOSE = verbose

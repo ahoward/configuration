@@ -7,7 +7,7 @@ Configuration.for('e'){
 
   respond_to = Method('bar')
 
-  if respond_to.call('bar')
+  if respond_to.call()
     foobar 42.0 
   end
 }
