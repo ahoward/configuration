@@ -3,7 +3,7 @@
 
 Gem::Specification::new do |spec|
   spec.name = "configuration"
-  spec.version = "1.0.0"
+  spec.version = "1.1.0"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "configuration"
 
