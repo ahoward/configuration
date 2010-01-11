@@ -85,6 +85,10 @@ class Configuration
       }
     end
 
+    def update options = {}, &block
+      DSL.evaluate(self, options, &block)
+    end
+
     def dup
       ret = self.class.new @name
       each do |name|
