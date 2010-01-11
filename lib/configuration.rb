@@ -12,7 +12,6 @@ class Configuration
 
   Table = Hash.new
   Error = Class.new StandardError
-  Import = Class.new Error
 
   module ClassMethods
     def for name, options = nil, &block
