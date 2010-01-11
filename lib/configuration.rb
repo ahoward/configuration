@@ -72,6 +72,19 @@ class Configuration
       return(Pure[@__parent].send m, *a, &b) rescue super if @__parent
       super
     end
+
+    include Enumerable
+
+    def each
+      methods(false).each{|v| yield v }
+    end
+
+    def to_hash
+      inject({}){ |h,name|
+        val = __send__(name.to_sym)
+        h.update name.to_sym => Configuration === val ? val.to_hash : val
+      }
+    end
   end
   send :include, InstanceMethods
 
