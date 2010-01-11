@@ -84,6 +84,21 @@ class Configuration
         h.update name.to_sym => Configuration === val ? val.to_hash : val
       }
     end
+
+    def dup
+      ret = self.class.new @name
+      each do |name|
+        val = __send__ name.to_sym
+        if Configuration === val
+          val = val.dup
+          val.instance_variable_set('@__parent', ret)
+          DSL.evaluate(ret, name.to_sym => val)
+        else
+          DSL.evaluate(ret, name.to_sym => (val.dup rescue val))
+        end
+      end
+      ret
+    end
   end
   send :include, InstanceMethods
 
