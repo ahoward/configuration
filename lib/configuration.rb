@@ -1,5 +1,5 @@
 class Configuration
-  Configuration::Version = '1.1.0'
+  Configuration::Version = '1.1.1'
   def Configuration.version() Configuration::Version end
 
   Path = [
@@ -12,7 +12,6 @@ class Configuration
 
   Table = Hash.new
   Error = Class.new StandardError
-  Import = Class.new Error
 
   module ClassMethods
     def for name, options = nil, &block
@@ -71,6 +70,38 @@ class Configuration
     def method_missing m, *a, &b
       return(Pure[@__parent].send m, *a, &b) rescue super if @__parent
       super
+    end
+
+    include Enumerable
+
+    def each
+      methods(false).each{|v| yield v }
+    end
+
+    def to_hash
+      inject({}){ |h,name|
+        val = __send__(name.to_sym)
+        h.update name.to_sym => Configuration === val ? val.to_hash : val
+      }
+    end
+
+    def update options = {}, &block
+      DSL.evaluate(self, options, &block)
+    end
+
+    def dup
+      ret = self.class.new @name
+      each do |name|
+        val = __send__ name.to_sym
+        if Configuration === val
+          val = val.dup
+          val.instance_variable_set('@__parent', ret)
+          DSL.evaluate(ret, name.to_sym => val)
+        else
+          DSL.evaluate(ret, name.to_sym => (val.dup rescue val))
+        end
+      end
+      ret
     end
   end
   send :include, InstanceMethods
