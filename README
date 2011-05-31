@@ -191,6 +191,26 @@ SAMPLES
     "forty-two"
     42.0
 
+  <========< samples/f.rb >========>
+
+  ~ > cat samples/f.rb
+
+    #
+    # configuration.rb let's you inherit values from another configuration.
+    # Like this, you keep your code very dry.
+    #
+
+      require 'configuration'
+
+      Configuration.load 'f'
+
+      p c.a
+      p c.b
+
+  ~ > ruby samples/f.rb
+
+    10
+    2
 
 
 AUTHOR

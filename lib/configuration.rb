@@ -16,6 +16,8 @@ class Configuration
   module ClassMethods
     def for name, options = nil, &block
       name = name.to_s
+      options = options.to_hash if options.is_a?( Configuration )
+
       if Table.has_key?(name)
         if options or block
           configuration = Table[name]
@@ -132,8 +134,10 @@ class Configuration
 
     def self.evaluate configuration, options = {}, &block
       dsl = new configuration
-      Pure[dsl].instance_eval(&block) if block
+      
       options.each{|key, value| Pure[dsl].send key, value}
+      Pure[dsl].instance_eval(&block) if block
+
       Pure[dsl].instance_eval{ @__configuration }
     end
 
