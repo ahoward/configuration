@@ -3,11 +3,11 @@
 
 Gem::Specification::new do |spec|
   spec.name = "configuration"
-  spec.version = "1.1.1"
+  spec.version = "1.3.0"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "configuration"
 
-  spec.files = ["config", "config/a.rb", "config/b.rb", "config/c.rb", "config/d.rb", "config/e.rb", "configuration.gemspec", "lib", "lib/configuration.rb", "Rakefile", "README", "README.erb", "samples", "samples/a.rb", "samples/b.rb", "samples/c.rb", "samples/d.rb", "samples/e.rb"]
+  spec.files = ["config", "config/a.rb", "config/b.rb", "config/c.rb", "config/d.rb", "config/e.rb", "config/f.rb", "configuration.gemspec", "lib", "lib/configuration.rb", "LICENSE", "Rakefile", "README.rdoc", "samples", "samples/a.rb", "samples/b.rb", "samples/c.rb", "samples/d.rb", "samples/e.rb", "samples/f.rb"]
   spec.executables = []
   
   
