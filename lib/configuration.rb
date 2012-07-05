@@ -1,5 +1,5 @@
 class Configuration
-  Configuration::Version = '1.3.1'
+  Configuration::Version = '1.3.2'
   def Configuration.version() Configuration::Version end
 
   Path = [

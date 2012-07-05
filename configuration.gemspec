@@ -3,7 +3,7 @@
 
 Gem::Specification::new do |spec|
   spec.name = "configuration"
-  spec.version = "1.3.1"
+  spec.version = "1.3.2"
   spec.platform = Gem::Platform::RUBY
   spec.summary = "configuration"
   spec.description = "description: configuration kicks the ass"
@@ -28,7 +28,9 @@ Gem::Specification::new do |spec|
  "samples/c.rb",
  "samples/d.rb",
  "samples/e.rb",
- "samples/f.rb"]
+ "samples/f.rb",
+ "test",
+ "test/overwrite_test.rb"]
 
   spec.executables = []
   
