@@ -1,6 +1,10 @@
 class Configuration
-  Configuration::Version = '1.3.2'
+  Configuration::Version = '1.3.3'
   def Configuration.version() Configuration::Version end
+
+  def Configuration.description
+    'ruby configuration for your ruby programs'
+  end
 
   Path = [
     if defined? CONFIGURATION_PATH
