@@ -1,5 +1,5 @@
 class Configuration
-  Configuration::Version = '1.3.3'
+  Configuration::Version = '1.3.4'
   def Configuration.version() Configuration::Version end
 
   def Configuration.description
